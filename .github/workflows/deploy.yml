@@ -18,13 +18,13 @@ jobs:
     # if: github.ref == 'refs/heads/main' && github.actor == 'Lyandiff'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Worktree
         uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: latest
-      - name: Change basename
+      - name: Change Basename
         run: |
           cd fe_simklinik/src
           mv main.jsx main2.jsx
@@ -32,17 +32,17 @@ jobs:
           line=$(grep -ne "<BrowserRouter>" main2.jsx | cut -f1 -d:)
           full=$(wc -l < main2.jsx)
           head -n $((line-1)) main2.jsx >> main.jsx
-          echo -e "<BrowserRouter basename=\"test\">" >> main.jsx
+          echo -e "<BrowserRouter basename=\"/${{ github.event.repository.name }}\">" >> main.jsx
           tail -n $((full-line)) main2.jsx >> main.jsx
-      - name: Install dependencies
+      - name: Install Dependencies
         run: |
           cd fe_simklinik
           npm install
-      - name: Build
+      - name: Build Project
         run: |
           cd fe_simklinik
           npm run build
-      - name: Upload artifact
+      - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./fe_simklinik/dist
