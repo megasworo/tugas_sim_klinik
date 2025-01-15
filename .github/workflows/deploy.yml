@@ -41,7 +41,7 @@ jobs:
       - name: Build Project
         run: |
           cd fe_simklinik
-          npm run build
+          npm run build -- --base=/${{ github.event.repository.name }}/
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
