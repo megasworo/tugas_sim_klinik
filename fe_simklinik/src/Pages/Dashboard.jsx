@@ -5,7 +5,7 @@ const Dashboard = function () {
   return (
     <>
       <Link to="/">Kembali</Link>
-      <h1>Dashboard</h1>
+      <h1 className="bg-slate-500">Dashboard</h1>
     </>
   );
 };
